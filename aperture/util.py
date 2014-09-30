@@ -30,6 +30,14 @@ def floor_nearest(x, dx=1):
     return round(math.floor(float(x) / dx) * dx, precision)
 
 
+def ceil_nearest(x, dx=1):
+    """
+    ceil a number to within a given rounding accuracy
+    """
+    precision = get_sig_digits(dx)
+    return round(math.ceil(float(x) / dx) * dx, precision)
+
+
 def frange(x, y, jump=1):
     """
     range for floats

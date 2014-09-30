@@ -18,10 +18,21 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
     """
 
     # parse args
-    minx = min(x)
-    maxx = max(x)
-    miny = min(y)
-    maxy = max(y)
+    if isinstance(step, (list,tuple)):
+        x_acc = step[0]
+        y_acc = step[1]
+    elif isinstance(step, (int,float)):
+        x_acc = step
+        y_acc = step
+    else:
+        x_acc = 1
+        y_acc = 1
+    
+    # set data boundary defaults
+    minx = util.floor_nearest(min(x), x_acc)
+    maxx = util.ceil_nearest(max(x), x_acc)
+    miny = util.floor_nearest(min(y), y_acc)
+    maxy = util.ceil_nearest(max(y), y_acc)
 
     # step
     if step is None:
@@ -73,6 +84,7 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
     # return matrix
     return (x_vec, y_vec, hist_matrix)
 
+
 def init_heatmap(x_vec, y_vec, hist_matrix, fig, 
                  colormap='Blues', grid=False, colorbar=True, 
                  auto_aspect=True):
@@ -83,16 +95,24 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig,
     ax = fig.gca()
     
     asp = 'auto' if auto_aspect else 1
-    
+
+    # set vmax and vmin
+    mat_max = [max(row) for row in hist_matrix]
+    mat_max = max(mat_max)
+    vma = mat_max if mat_max > 1 else 1  # do not let vma = 0
+    vmi = 0
+
     plt.imshow(hist_matrix, cmap=plt.get_cmap(colormap), 
                origin='lower', aspect=asp,
-               extent=[min(x_vec), max(x_vec), min(y_vec), max(y_vec)])
+               extent=[min(x_vec), max(x_vec), min(y_vec), max(y_vec)],
+               vmax=vma, vmin=vmi)
 
     if colorbar:
         plt.colorbar()
     
     if not grid:
         ax.grid(False, which="majorminor")
+
 
 def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, 
                  colormap='Blues', grid=False, colorbar=True, auto_aspect=True):
@@ -107,3 +127,6 @@ def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
                  auto_aspect=auto_aspect)
     
     return fig
+
+
+
