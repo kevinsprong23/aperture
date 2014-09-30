@@ -99,8 +99,16 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig,
     # set vmax and vmin
     mat_max = [max(row) for row in hist_matrix]
     mat_max = max(mat_max)
-    vma = mat_max if mat_max > 1 else 1  # do not let vma = 0
-    vmi = 0
+    
+    mat_min = [min(row) for row in hist_matrix]
+    mat_min = min(mat_min)
+    
+    vma = mat_max
+    vmi = mat_min
+    
+    # an error check
+    if vma == vmi:
+        vma = vmi + 1
 
     plt.imshow(hist_matrix, cmap=plt.get_cmap(colormap), 
                origin='lower', aspect=asp,
