@@ -25,4 +25,9 @@ Yet another set of wrappers, settings, and added features for Python/matplotlib 
     
 The result:
 ![Image here](http://kevinsprong.com/images/projects/aperture/aperture_example.png)
-    
+
+There is also some customizability:
+
+    fig = ap.make_heatmap(x, y, step=0.5, colormap='Greens')    
+
+![Image here](http://kevinsprong.com/images/projects/aperture/aperture_example2.png)
