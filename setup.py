@@ -1,11 +1,14 @@
 from setuptools import setup
 
-setup(name='p3',
+setup(name='aperture',
       version='0.1',
-      description='Pretty Python Plots',
-      url='https://github.com/kevinsprong/p3',
+      description='Wrappers, settings, and extensions for Python/matplotlib',
+      url='https://github.com/kevinsprong/aperture',
       author='Kevin Sprong',
       author_email='kevin@kevinsprong.com',
       license='MIT',
-      packages=['p3'],
+      packages=['aperture'],
+      install_requires=[
+          'matplotlib',
+      ],
       zip_safe=False)

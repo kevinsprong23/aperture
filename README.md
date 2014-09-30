@@ -1,3 +1,3 @@
-#Pretty Python Plots
+#Aperture
 
-Wrappers and settings for Python/matplotlib plotting
+Yet another set of wrappers, settings, and added features for Python/matplotlib plotting
