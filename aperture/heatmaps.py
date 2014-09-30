@@ -85,8 +85,8 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
     return (x_vec, y_vec, hist_matrix)
 
 
-def init_heatmap(x_vec, y_vec, hist_matrix, fig, 
-                 colormap='Blues', grid=False, colorbar=True, 
+def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
+                 alpha=1, grid=False, colorbar=True, 
                  auto_aspect=True):
     """
     convenience function to initialize a standard colormap in a figure
@@ -111,7 +111,7 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig,
         vma = vmi + 1
 
     plt.imshow(hist_matrix, cmap=plt.get_cmap(colormap), 
-               origin='lower', aspect=asp,
+               origin='lower', aspect=asp, alpha=alpha,
                extent=[min(x_vec), max(x_vec), min(y_vec), max(y_vec)],
                vmax=vma, vmin=vmi)
 
@@ -119,19 +119,19 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig,
         plt.colorbar()
     
     if not grid:
-        ax.grid(False, which="majorminor")
+        ax.grid(False)
 
 
-def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, 
-                 colormap='Blues', grid=False, colorbar=True, auto_aspect=True):
+def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, colormap='Blues',
+                 alpha=1, grid=False, colorbar=True, auto_aspect=True):
     """
     function to take vectors x and y and hist them
     """
     (x_vec, y_vec, hist_matrix) = calc_2d_hist(x, y, step, min_pt, max_pt)
     
     fig = plt.figure()
-    init_heatmap(x_vec, y_vec, hist_matrix, fig, 
-                 colormap=colormap, grid=grid, colorbar=colorbar,
+    init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap=colormap,
+                 alpha=alpha, grid=grid, colorbar=colorbar,
                  auto_aspect=auto_aspect)
     
     return fig
