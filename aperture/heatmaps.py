@@ -43,7 +43,6 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
     if min_pt is None:
         min_pt = (minx, miny)
 
-
     if max_pt is None:
         max_pt = (maxx, maxy)
 
@@ -56,8 +55,8 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
         util.increment(bin_dict, (x0, y0))
 
     # turn dict into matrix
-    x_vec = [n for n in util.frange(minx, maxx, step[0])]
-    y_vec = [n for n in util.frange(miny, maxy, step[1])]
+    x_vec = [n for n in util.frange(min_pt[0], max_pt[0], step[0])]
+    y_vec = [n for n in util.frange(min_pt[1], max_pt[1], step[1])]
 
     hist_matrix = []
  
@@ -75,14 +74,18 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
     return (x_vec, y_vec, hist_matrix)
 
 def init_heatmap(x_vec, y_vec, hist_matrix, fig, 
-                 colormap='Blues', grid=False, colorbar=True):
+                 colormap='Blues', grid=False, colorbar=True, 
+                 auto_aspect=True):
     """
     convenience function to initialize a standard colormap in a figure
     """
     plt.figure(fig.number)
     ax = fig.gca()
     
-    plt.imshow(hist_matrix, cmap=plt.get_cmap(colormap), origin='lower',
+    asp = 'auto' if auto_aspect else 1
+    
+    plt.imshow(hist_matrix, cmap=plt.get_cmap(colormap), 
+               origin='lower', aspect=asp,
                extent=[min(x_vec), max(x_vec), min(y_vec), max(y_vec)])
 
     if colorbar:
@@ -92,7 +95,7 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig,
         ax.grid(False, which="majorminor")
 
 def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, 
-                 colormap='Blues', grid=False, colorbar=True):
+                 colormap='Blues', grid=False, colorbar=True, auto_aspect=True):
     """
     function to take vectors x and y and hist them
     """
@@ -100,6 +103,7 @@ def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
     
     fig = plt.figure()
     init_heatmap(x_vec, y_vec, hist_matrix, fig, 
-                 colormap=colormap, grid=grid, colorbar=colorbar)
+                 colormap=colormap, grid=grid, colorbar=colorbar,
+                 auto_aspect=auto_aspect)
     
     return fig

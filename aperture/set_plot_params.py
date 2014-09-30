@@ -1,3 +1,5 @@
+import matplotlib as mpl
+
 def set_plot_params():
     """ 
     set plot parameters for session, as an alternative to 
@@ -8,7 +10,7 @@ def set_plot_params():
     mpl.rcParams['text.color'] = "777777"
     mpl.rcParams['axes.facecolor'] = 'f7f7f5'
     mpl.rcParams['axes.edgecolor'] = '111111'   # axes edge color
-    mpl.rcParams['axes.grid'] = True   # display grid or not
+    mpl.rcParams['axes.grid'] = 'True'   # display grid or not
     mpl.rcParams['axes.titlesize'] = 18   # fontsize of the axes title
     mpl.rcParams['axes.labelsize'] = 18  # fontsize of the x any y labels
     mpl.rcParams['axes.labelcolor'] = '777777'
@@ -19,6 +21,6 @@ def set_plot_params():
     mpl.rcParams['legend.fontsize'] = 18
     mpl.rcParams['figure.figsize'] = 11, 8    # figure size in inches
     mpl.rcParams['figure.facecolor'] = 'f7f7f5'    # figure facecolor; 0.75 is scalar gray
-    mpl.rcParams['figure.edgecolor'] = None   # figure edgecolor
+    mpl.rcParams['figure.edgecolor'] = 'None'   # figure edgecolor
     mpl.rcParams['savefig.facecolor'] = 'f7f7f5'    # figure facecolor when saving
-    mpl.rcParams['savefig.edgecolor'] = None   # figure edgecolor when saving
+    mpl.rcParams['savefig.edgecolor'] = 'None'   # figure edgecolor when saving
