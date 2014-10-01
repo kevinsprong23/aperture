@@ -128,8 +128,10 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
         ax.grid(False)
 
 
-def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, colormap='Blues',
-                 alpha=1, grid=False, colorbar=True, auto_aspect=True, scale='lin'):
+def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, 
+                 colormap='Blues', alpha=1, grid=False, 
+                 colorbar=True, auto_aspect=True, scale='lin',
+                 vmax='auto', vmin='auto'):
     """
     function to take vectors x and y and hist them
     """
@@ -145,7 +147,7 @@ def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, colormap='Blues',
     fig = plt.figure()
     init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap=colormap,
                  alpha=alpha, grid=grid, colorbar=colorbar,
-                 auto_aspect=auto_aspect)
+                 auto_aspect=auto_aspect, vmax=vmax, vmin=vmin)
     
     return fig
 
