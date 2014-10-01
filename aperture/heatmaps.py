@@ -137,6 +137,9 @@ def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
     init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap=colormap,
                  alpha=alpha, grid=grid, colorbar=colorbar,
                  vmax=vmax, vmin=vmin)
+    
+    plt.xlim([x_vec[0], x_vec[-1]])
+    plt.ylim([y_vec[0], y_vec[-1]])
 
     return fig
 
