@@ -2,6 +2,7 @@
 functions to make pretty heatmaps
 """
 
+from math import log10
 import matplotlib.pyplot as plt
 from aperture import util
 
@@ -87,7 +88,7 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
 
 def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
                  alpha=1, grid=False, colorbar=True, 
-                 auto_aspect=True):
+                 auto_aspect=True, vmax='auto',vmin='auto'):
     """
     convenience function to initialize a standard colormap in a figure
     """
@@ -97,17 +98,22 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
     asp = 'auto' if auto_aspect else 1
 
     # set vmax and vmin
-    mat_max = [max(row) for row in hist_matrix]
-    mat_max = max(mat_max)
-    
-    mat_min = [min(row) for row in hist_matrix]
-    mat_min = min(mat_min)
-    
-    vma = mat_max
-    vmi = mat_min
-    
+    if vmax == 'auto':
+        mat_max = [max(row) for row in hist_matrix]
+        mat_max = max(mat_max)
+        vma = mat_max
+    else:
+        vma = vmax
+
+    if vmin == 'auto':
+        mat_min = [min(row) for row in hist_matrix]
+        mat_min = min(mat_min)
+        vmi = mat_min
+    else:
+        vmi = vmin
+
     # an error check
-    if vma == vmi:
+    if vma <= vmi:
         vma = vmi + 1
 
     plt.imshow(hist_matrix, cmap=plt.get_cmap(colormap), 
@@ -123,12 +129,19 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
 
 
 def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, colormap='Blues',
-                 alpha=1, grid=False, colorbar=True, auto_aspect=True):
+                 alpha=1, grid=False, colorbar=True, auto_aspect=True, scale='lin'):
     """
     function to take vectors x and y and hist them
     """
     (x_vec, y_vec, hist_matrix) = calc_2d_hist(x, y, step, min_pt, max_pt)
-    
+
+    # simple in this case because it is positive counts
+    if scale == 'log':
+        for row in hist_matrix:
+            for i,el in enumerate(row):
+                row[i] = 0 if row[i] == 0 else log10(row[i])
+
+    # plot
     fig = plt.figure()
     init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap=colormap,
                  alpha=alpha, grid=grid, colorbar=colorbar,
