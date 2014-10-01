@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='aperture',
-      version='0.1.8',
+      version='0.1.9',
       description='Wrappers, settings, and extensions for Python/matplotlib',
       url='https://github.com/kevinsprong23/aperture',
       author='Kevin Sprong',
@@ -10,5 +10,6 @@ setup(name='aperture',
       packages=['aperture'],
       install_requires=[
           'matplotlib',
+          'numpy'
       ],
       zip_safe=False)
