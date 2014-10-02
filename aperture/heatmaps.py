@@ -19,27 +19,16 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
     returns: a tuple (x_vec, y_vec, hist_matrix)
     """
 
-    # parse args
-    if isinstance(step, (list, tuple)):
-        x_acc = step[0]
-        y_acc = step[1]
-    elif isinstance(step, (int, float)):
-        x_acc = step
-        y_acc = step
-    else:
-        x_acc = 1
-        y_acc = 1
-
-    # set data boundary defaults
-    minx = util.floor_nearest(min(x), x_acc)
-    maxx = util.ceil_nearest(max(x), x_acc)
-    miny = util.floor_nearest(min(y), y_acc)
-    maxy = util.ceil_nearest(max(y), y_acc)
-
+    # rough data boundary    
+    minx = min(x)    
+    maxx = max(x)
+    miny = min(y)
+    maxy = max(y)         
+    
     # step
     if step is None:
         default_bins = 100
-        default_steps = [1e-6, 1e-5, 1e-4, 1e-3, 1e-2, 1e-1,
+        default_steps = [1e-6, 1e-5, 1e-4, 1e-3, 1e-2,
                          1, 10, 100, 1000, 1e4, 1e5, 1e6]
 
         stepx_raw = (maxx - minx)/default_bins
@@ -47,11 +36,21 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
 
         stepy_raw = (maxy - miny)/default_bins
         stepy = min(default_steps, key=lambda x: abs(x - stepy_raw))
-
+    
         step = (stepx, stepy)
-    elif not isinstance(step, (list, tuple)):
+    elif isinstance(step, (int, float)):  
         step = (step, step)
-
+    
+    # set rounding accuracy for min/max
+    x_acc = step[0]
+    y_acc = step[1]
+    
+    # set real data boundary defaults
+    minx = util.floor_nearest(minx, x_acc)
+    maxx = util.ceil_nearest(maxx, x_acc)
+    miny = util.floor_nearest(miny, y_acc)
+    maxy = util.ceil_nearest(maxy, y_acc)
+    
     # min and max pt
     if min_pt is None:
         min_pt = (minx, miny)
