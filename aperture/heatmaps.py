@@ -124,7 +124,7 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
 def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
                  colormap='Blues', alpha=1, grid=False,
                  colorbar=True, scale='lin',
-                 vmax='auto', vmin='auto', crop=False):
+                 vmax='auto', vmin='auto', crop=True):
     """
     function to take vectors x and y and hist them
     """
