@@ -72,9 +72,9 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
 
     hist_matrix = []
 
-    for xj in x_vec:
+    for yi in y_vec:
         row = []
-        for yi in y_vec:
+        for xj in x_vec:
             key = (xj, yi)
             if key in bin_dict:
                 row.append(bin_dict[key])
@@ -88,7 +88,7 @@ def calc_2d_hist(x, y, step=None, min_pt=None, max_pt=None):
 
 def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
                  alpha=1, grid=False, colorbar=True,
-                 vmax='auto', vmin='auto'):
+                 vmax='auto', vmin='auto', crop=True):
     """
     convenience function to initialize a standard colormap in a figure
     """
@@ -106,7 +106,7 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
     # grid the space for pcolormesh
     x_grid, y_grid = np.meshgrid(x_vec, y_vec)
 
-    hmap = ax.pcolormesh(x_grid, y_grid, np.array(hist_matrix).T,
+    hmap = ax.pcolormesh(x_grid, y_grid, np.array(hist_matrix),
                cmap=colormap, alpha=alpha, shading='gouraud',
                vmax=vma, vmin=vmi)
 
@@ -116,11 +116,15 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
     if not grid:
         ax.grid(False)
 
+    if crop:
+        ax.set_xlim([x_vec[0], x_vec[-1]])
+        ax.set_ylim([y_vec[0], y_vec[-1]])
+
 
 def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
                  colormap='Blues', alpha=1, grid=False,
                  colorbar=True, scale='lin',
-                 vmax='auto', vmin='auto'):
+                 vmax='auto', vmin='auto', crop=False):
     """
     function to take vectors x and y and hist them
     """
@@ -136,10 +140,7 @@ def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
     fig = plt.figure()
     init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap=colormap,
                  alpha=alpha, grid=grid, colorbar=colorbar,
-                 vmax=vmax, vmin=vmin)
-    
-    plt.xlim([x_vec[0], x_vec[-1]])
-    plt.ylim([y_vec[0], y_vec[-1]])
+                 vmax=vmax, vmin=vmin, crop=crop)
 
     return fig
 
