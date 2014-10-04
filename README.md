@@ -17,9 +17,10 @@ Yet another set of wrappers, settings, and added features for Python/matplotlib 
 
     x,y = np.random.multivariate_normal(mean,cov,npts).T
 
+    # look how easy this is
     import aperture as ap
 
-    ap.set_plot_params()  # for some better defaults
+    ap.set_plot_params()  # better defaults
     fig = ap.make_heatmap(x, y)
     plt.show()
     
