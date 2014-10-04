@@ -4,6 +4,7 @@ for plot options
 
 color scheme from Solarized by Ethan Schoonover
 """
+from __future__ import print_function
 
 def solarized(color_str):
     """
@@ -32,5 +33,5 @@ def solarized(color_str):
     try:
         return sol_colors[color_str]
     except KeyError:
-        print(str(color_str) + 'is not a solarized color')
+        print(str(color_str) + ' is not a solarized color.')
         raise
