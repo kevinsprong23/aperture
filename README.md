@@ -21,7 +21,7 @@ Yet another set of wrappers, settings, and added features for Python/matplotlib 
     import aperture as ap
 
     ap.set_plot_params()  # better defaults
-    fig = ap.make_heatmap(x, y)
+    fig = ap.heatmap(x, y)
     plt.show()
     
 The result:
@@ -29,6 +29,6 @@ The result:
 
 There is also some customizability:
 
-    fig = ap.make_heatmap(x, y, step=0.5, colormap='Greens')    
+    fig = ap.heatmap(x, y, step=0.5, colormap='Greens')    
 
 ![Image here](http://kevinsprong.com/images/projects/aperture/aperture_example2.png)

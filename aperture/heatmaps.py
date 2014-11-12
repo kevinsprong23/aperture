@@ -120,7 +120,7 @@ def init_heatmap(x_vec, y_vec, hist_matrix, fig, colormap='Blues',
         ax.set_ylim([y_vec[0], y_vec[-1]])
 
 
-def make_heatmap(x, y, step=None, min_pt=None, max_pt=None,
+def heatmap(x, y, step=None, min_pt=None, max_pt=None,
                  colormap='Blues', alpha=1, grid=False,
                  colorbar=True, scale='lin',
                  vmax='auto', vmin='auto', crop=True):
