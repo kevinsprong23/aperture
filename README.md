@@ -4,7 +4,7 @@ Yet another set of wrappers, settings, and added features for Python/matplotlib 
 
 ###Example function:
     # make a density map out of two vectors x and y
-    def make_heatmap(x, y, step=None, min_pt=None, max_pt=None, 
+    def heatmap(x, y, step=None, min_pt=None, max_pt=None, 
                  colormap='Blues', grid=False, colorbar=True, auto_aspect=True)
                
 ###Example usage:               
